@@ -1,6 +1,7 @@
 # FadeNet: Fractional Attention Diffusion Enhanced Network
 
 A PyTorch implementation of FadeNet, featuring the novel FadeAttn (Fractional Attention Diffusion Enhanced Attention) mechanism for medical image classification tasks.
+Vision Transformers (ViTs) have emerged as one of the most powerful backbones for medical imaging because of their ability to capture global features very effectively, which is vital for complex anatomical understanding and pathological variations.However,ViTs often struggle to maintain spatial coherence, which is an essential feature for medical images where local tissue patterns and fine details are critical for diagnosis. Recent variants of ViT, such as GraphViTs, encode spatial coherence by graph-based relations, but they often hardcode the entire local neighborhood structure without any adaptivity. On the other hand, diffusion models help in iterative feature refinement to better represent subtle abnormalities, but they lack integration with global features, which hinders their ability to balance global context with local structure.To overcome these shortcomings, in this paper we introduce FadeFormer, a novel architecture that unifies graph Laplacian diffusion operator with Transformer self-attention through a learnable mechanism. This enables an adaptive integration of local spatial smoothness and global contextual reasoning for improved medical image analysis. The proposed architecture was tested on publicly available MedMNIST v2, ISIC-2019 and NIH Chest X-Ray 14 medical image datasets.
 
 ## Project Structure
 
@@ -110,6 +111,9 @@ python main.py \
 - **Learnable Mixing**: α parameter for attention/diffusion balance
 - **Laplacian Graph**: Spatial relationship modeling
 
+<img width="1018" height="1258" alt="image" src="https://github.com/user-attachments/assets/44421b3d-3062-4e39-b6b1-c2cc74021f00" />
+
+
 ## Output Files
 
 After training, the following files are saved to the results directory:
@@ -140,18 +144,63 @@ After training, the following files are saved to the results directory:
 - **Comprehensive Metrics**: Accuracy, Precision, Recall, F1, AUC
 - **Visual Analysis**: Multiple plot types for result interpretation
 
+### Results
+
+Table 1. Comparison of AUC and Accuracy (%) on MedMNIST datasets
+| Dataset     | Backbone      | AUC (%)   | Accuracy (%) |
+| ----------- | ------------- | --------- | ------------ |
+| OrganAMNIST | ResNet18      | 99.8      | 95.1         |
+|             | AutoKeras     | 99.4      | 90.5         |
+|             | AutoML Vision | 99.0      | 88.6         |
+|             | MedViT        | 99.7      | 93.2         |
+|             | **FadeFormer**      | **99.9**  | **98.5**     |
+| OrganCMNIST | ResNet18      | 99.4      | 92.0         |
+|             | AutoKeras     | 99.0      | 87.9         |
+|             | AutoML Vision | 98.8      | 87.7         |
+|             | MedViT        | 99.3      | 92.0         |
+|             | **FadeFormer**      | **99.53** | **92.0**     |
+| RetinaMNIST | ResNet18      | 71.0      | 49.3         |
+|             | AutoKeras     | 71.9      | 50.3         |
+|             | AutoML Vision | 75.0      | 53.1         |
+|             | MedViT        | 82.1      | 59.4         |
+|             | **FadeFormer**      | **75.3**  | **60.5**     |
+| BloodMNIST  | ResNet18      | 99.8      | 96.3         |
+|             | AutoKeras     | 99.8      | 96.1         |
+|             | AutoML Vision | 99.8      | 96.6         |
+|             | MedViT        | 99.7      | 96.8         |
+|             | **FadeFormer**      | **99.9**  | **98.1**     |
+| ChestMNIST  | ResNet18      | 77.3      | 94.7         |
+|             | AutoKeras     | 74.2      | 93.7         |
+|             | AutoML Vision | 77.8      | 94.8         |
+|             | MedViT        | 55.0      | 94.7         |
+|             | **FadeFormer**      | **77.9**  | **94.8**     |
+
+
+Table 2. Comparison of BMCA and AUC (%) on the ISIC 2019 dataset
+| Method       | Backbone          | BMCA (%)  | AUC (%)  |
+| ------------ | ----------------- | --------- | -------- |
+| ResNet18     | Baseline          | 65.7      | 91.2     |
+| EfficientNet | Baseline          | 66.8      | 92.0     |
+| ViT          | Transformer-based | 68.36     | 93.06    |
+| MedViT       | Transformer-based | 68.29     | 93.34    |
+| **FadeFormer**     | Proposed          | **68.43** | **93.5** |
+
+Table 3. Comparison of accuracy and AUC (%) on the NIH ChestX-ray14 dataset
+| Method       | Backbone          | Accuracy (%) | AUC (%)  |
+| ------------ | ----------------- | ------------ | -------- |
+| ResNet18     | Baseline          | 70.2         | 81.3     |
+| EfficientNet | Baseline          | 72.9         | 83.5     |
+| ViT          | Transformer-based | 74.0         | 85.0     |
+| MedViT       | Transformer-based | 74.5         | 86.0     |
+| **FadeFormer**     | Proposed          | **74.3**     | **85.8** |
+
+<img width="1182" height="384" alt="image" src="https://github.com/user-attachments/assets/f3d132a4-1ba6-48f0-a285-3012cb1be7fd" />
+<img width="1570" height="420" alt="image" src="https://github.com/user-attachments/assets/895549b7-abef-4918-9b40-6c1232170a4c" />
+
+
 ## Citation
 
-If you use this code in your research, please cite:
-
-```bibtex
-@inproceedings{fadenet2024,
-    title={FadeNet: Fractional Attention Diffusion Enhanced Network},
-    author={Your Name},
-    booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
-    year={2024}
-}
-```
+This paper is an official submission to WACV 2026
 
 ## License
 
