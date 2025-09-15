@@ -1,7 +1,7 @@
 # FadeNet: Fractional Attention Diffusion Enhanced Network
 
 A PyTorch implementation of FadeNet, featuring the novel FadeAttn (Fractional Attention Diffusion Enhanced Attention) mechanism for medical image classification tasks.
-Vision Transformers (ViTs) have emerged as one of the most powerful backbones for medical imaging because of their ability to capture global features very effectively, which is vital for complex anatomical understanding and pathological variations.However,ViTs often struggle to maintain spatial coherence, which is an essential feature for medical images where local tissue patterns and fine details are critical for diagnosis. Recent variants of ViT, such as GraphViTs, encode spatial coherence by graph-based relations, but they often hardcode the entire local neighborhood structure without any adaptivity. On the other hand, diffusion models help in iterative feature refinement to better represent subtle abnormalities, but they lack integration with global features, which hinders their ability to balance global context with local structure.To overcome these shortcomings, in this paper we introduce FadeFormer, a novel architecture that unifies graph Laplacian diffusion operator with Transformer self-attention through a learnable mechanism. This enables an adaptive integration of local spatial smoothness and global contextual reasoning for improved medical image analysis. The proposed architecture was tested on publicly available MedMNIST v2, ISIC-2019 and NIH Chest X-Ray 14 medical image datasets.
+Vision Transformers (ViTs) have emerged as one of the most powerful backbones for medical imaging because of their ability to capture global features very effectively, which is vital for complex anatomical understanding and pathological variations. However, ViTs often struggle to maintain spatial coherence, which is an essential feature for medical images where local tissue patterns and fine details are critical for diagnosis. Recent variants of ViT, such as GraphViTs, encode spatial coherence by graph-based relations, but they often hardcode the entire local neighborhood structure without any adaptivity. On the other hand, diffusion models help in iterative feature refinement to better represent subtle abnormalities, but they lack integration with global features, which hinders their ability to balance global context with local structure.To overcome these shortcomings, in this paper we introduce FadeFormer, a novel architecture that unifies graph Laplacian diffusion operator with Transformer self-attention through a learnable mechanism. This enables an adaptive integration of local spatial smoothness and global contextual reasoning for improved medical image analysis. The proposed architecture was tested on publicly available MedMNIST v2, ISIC-2019 and NIH Chest X-Ray 14 medical image datasets.
 
 ## Project Structure
 
@@ -196,6 +196,16 @@ Table 3. Comparison of accuracy and AUC (%) on the NIH ChestX-ray14 dataset
 
 <img width="1182" height="384" alt="image" src="https://github.com/user-attachments/assets/f3d132a4-1ba6-48f0-a285-3012cb1be7fd" />
 <img width="1570" height="420" alt="image" src="https://github.com/user-attachments/assets/895549b7-abef-4918-9b40-6c1232170a4c" />
+
+## FLOPS Table
+
+| Model           | Architecture               | Parameters (M) | FLOPs (G) | Memory (GB) |
+| --------------- | -------------------------- | -------------- | --------- | ----------- |
+| **FADE (Ours)** | ViT-Base + Graph Attention | 86.6           | 569.16    | 3.2         |
+| ViT-Base/16     | Vision Transformer         | 86.0           | 550.57    | 3.0         |
+| ResNet-50       | Convolutional              | 25.6           | 130.40    | 1.8         |
+| EfficientNet-B4 | Efficient CNN              | 19.3           | 18.50     | 1.4         |
+| DeiT-Base/16    | Distilled ViT              | 86.0           | 550.57    | 3.0         |
 
 
 ## Citation
