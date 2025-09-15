@@ -34,7 +34,7 @@ FadeNet/
 
 ```bash
 git clone https://github.com/SachinPrasanth777/FadeFormer
-cd FadeForner
+cd FadeFormer
 pip install -r requirements.txt
 ```
 
